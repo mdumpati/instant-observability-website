@@ -4,6 +4,45 @@ import { quickstart } from '../types';
 import OverviewTile from './OverviewTile';
 import Markdown from './Markdown';
 
+
+const textMD = `## Comprehensive monitoring quickstart for .NET
+
+.NET Framework is a software product developed by Microsoft. It is a platform used on the Microsoft Windows operating system to build desktop and web applications and supports many programming languages.
+
+### Why monitor .NET?
+
+.NET monitoring is an essential activity in .NET software development that enables software developers to observe the performance of an application in real-time. .NET monitoring enables a swift intervention if issues arise while the application runs.
+
+### What should you look for in a .NET Monitor?
+
+An ideal must offer comprehensive and actionable information that software developers need to troubleshoot an application successfully. Some key components are:
+![.NET Performance Monitor](https://raw.githubusercontent.com/newrelic/newrelic-quickstarts/main/quickstarts/dotnet/dotnet/images/Transactions.png) 
+
+- Preemptive performance monitoring
+- Comprehensive full-stack performance monitoring
+- Intimate code insights
+- Granular error identification mechanism
+- Comprehensive .NET Framework, Common Language Runtime (CLR), and Internet Information Services (IIS) monitoring
+
+### What's included in this quickstart:
+
+- High-value alerts
+- Code-related insights that acquaint developers with the intricate details of their application’s health and status by providing detailed information on errors, database queries, and transaction traces
+- Alerts that proactively inform developers about the status of their applications
+
+### What makes this quickstart unique?
+
+With this quickstart, you can monitor health and status in one place, focus on the most important information, and enable preventative maintenance strategy.
+![.NET Performance Monitor](https://raw.githubusercontent.com/newrelic/newrelic-quickstarts/main/quickstarts/dotnet/dotnet/images/Transactions.png)
+
+
+### What makes this quickstart unique?
+
+With this quickstart, you can monitor health and status in one place, focus on the most important information, and enable preventative maintenance strategy.
+![.NET Performance Monitor](https://raw.githubusercontent.com/newrelic/newrelic-quickstarts/main/quickstarts/dotnet/dotnet/images/Transactions.png)
+`
+
+
 const allowedElements = [
   'h1',
   'h2',
@@ -18,6 +57,7 @@ const allowedElements = [
   'strong',
   'em',
   'hr',
+  'img'
 ];
 
 const QuickstartOverview = ({ quickstart }) => {
@@ -89,8 +129,10 @@ const QuickstartOverview = ({ quickstart }) => {
             css={css`
               margin: 2em 0;
             `}
+            className="md-content"
           >
-            {quickstart.description}
+            {/* {quickstart.description} */}
+            {textMD}
           </Markdown>
         </div>
       )}
