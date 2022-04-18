@@ -3,15 +3,11 @@ import {
   Icon,
   Layout,
   Link,
-  PageTools,
-  RelatedResources,
   useTessen,
 } from '@newrelic/gatsby-theme-newrelic';
 import {
-  LOGIN_LINK,
   QUICKSTARTS_REPO,
-  SHIELD_LEVELS,
-  SIGNUP_LINK,
+  SHIELD_LEVELS
 } from '../data/constants';
 import React, { useEffect, useState } from 'react';
 
@@ -24,12 +20,11 @@ import PropTypes from 'prop-types';
 import QuickstartAlerts from '../components/QuickstartAlerts';
 import QuickstartDashboards from '../components/QuickstartDashboards';
 import QuickstartDataSources from '../components/QuickstartDataSources';
-import QuickstartOverview from '../components/QuickstartOverview';
-import SupportSection from '../components/SupportSection';
-import Tabs from '../components/Tabs';
 import { css } from '@emotion/react';
 import { graphql } from 'gatsby';
 import { quickstart } from '../types';
+import QuickstartDescription from '../components/QuickstartDescription';
+import QuickstartHowToUse from '../components/QuickstartHowToUse';
 
 const QuickstartDetails = ({ data, location }) => {
 
@@ -65,16 +60,6 @@ const QuickstartDetails = ({ data, location }) => {
       quickstartUrl: quickstart.packUrl,
     });
 
-  const tessenTabTrack = (action, quickstart) => (id, count) => {
-    tessen.track({
-      eventName: 'instantObservability',
-      category: action,
-      QuickstartTabState: id,
-      QuickstartTabCount: count,
-      quickstartName: quickstart.name,
-      quickstartId: quickstart.id,
-    });
-  };
   const tessenSupportTrack = (quickstart) => (action) => {
     tessen.track({
       eventName: 'instantObservability',
@@ -127,11 +112,10 @@ const QuickstartDetails = ({ data, location }) => {
         meta={quickStartMeta}
       />
       <Breadcrumbs segments={breadcrumbs} />
-      <Tabs>
         <PageLayout
           type={PageLayout.TYPE.RELATED_CONTENT_TABS}
           css={css`
-            grid-template-columns: minmax(0, 1fr) 360px;
+            grid-template-columns: minmax(0, 1fr);
             margin-top: 1rem;
           `}
         >
@@ -261,194 +245,71 @@ const QuickstartDetails = ({ data, location }) => {
               </Button>
             </div>
           </PageLayout.Header>
-          <Tabs.Bar
-            css={css`
-              grid-column: 1/3;
-              box-sizing: border-box;
-              padding-right: 30%;
-              @media (max-width: 1240px) {
-                padding: 0;
-              }
-              @media (max-width: 760px) {
-                flex-wrap: wrap;
-              }
-            `}
-          >
-            <Tabs.BarItem id="overview">Overview</Tabs.BarItem>
-            <Tabs.BarItem
-              id="dashboards"
-              count={quickstart.dashboards?.length ?? 0}
-              onClick={tessenTabTrack(`QuickstartTabToggle`, quickstart)}
-            >
-              Dashboards
-            </Tabs.BarItem>
-            <Tabs.BarItem
-              id="alerts"
-              count={quickstart.alerts?.length ?? 0}
-              onClick={tessenTabTrack(`QuickstartTabToggle`, quickstart)}
-            >
-              Alerts
-            </Tabs.BarItem>
-            <Tabs.BarItem
-              id="data-sources"
-              count={
-                (quickstart.instrumentation?.length ?? 0) +
-                (quickstart.documentation?.length ?? 0)
-              }
-              onClick={tessenTabTrack(`QuickstartTabToggle`, quickstart)}
-            >
-              Data sources
-            </Tabs.BarItem>
-          </Tabs.Bar>
+
           <Layout.Content>
-            <Tabs.Pages>
-              <Tabs.Page id="overview">
-                <QuickstartOverview quickstart={quickstart} />
-              </Tabs.Page>
-              <Tabs.Page id="dashboards">
-                {quickstart.dashboards?.length > 0 ? (
-                  <QuickstartDashboards quickstart={quickstart} />
-                ) : (
-                  <EmptyTab
-                    quickstartUrl={quickstart.packUrl}
-                    quickstartName={quickstart.title}
-                    tabName="dashboards"
-                  />
-                )}
-              </Tabs.Page>
-              <Tabs.Page id="alerts">
-                {quickstart.alerts?.length > 0 ? (
-                  <QuickstartAlerts quickstart={quickstart} />
-                ) : (
-                  <EmptyTab
-                    quickstartUrl={quickstart.packUrl}
-                    quickstartName={quickstart.title}
-                    tabName="alerts"
-                  />
-                )}
-              </Tabs.Page>
-              <Tabs.Page id="data-sources">
-                {quickstart.documentation?.length > 0 ? (
-                  <QuickstartDataSources quickstart={quickstart} />
-                ) : (
-                  <EmptyTab
-                    quickstartUrl={quickstart.packUrl}
-                    quickstartName={quickstart.title}
-                    tabName="data sources"
-                  />
-                )}
-              </Tabs.Page>
-            </Tabs.Pages>
+
+          {/* What's included section here */}
+
+            <h2> What&apos;s included </h2>
+            <div
+              css={css`
+                display: grid;
+                grid-gap: 1rem;
+                grid-template-columns: repeat(1, 1fr);
+
+                @media (max-width: 1180px) {
+                  grid-template-columns: repeat(1, 1fr);
+                }
+              `}
+            >
+              <h3>Dashboard</h3>
+              {quickstart.dashboards?.length > 0 ? (
+                <QuickstartDashboards quickstart={quickstart} />
+              ) : (
+                <EmptyTab
+                  quickstartUrl={quickstart.packUrl}
+                  quickstartName={quickstart.title}
+                  tabName="dashboards"
+                />
+              )}
+              <h3>Alerts</h3>
+              {quickstart.alerts?.length > 0 ? (
+                <QuickstartAlerts quickstart={quickstart} />
+              ) : (
+                <EmptyTab
+                  quickstartUrl={quickstart.packUrl}
+                  quickstartName={quickstart.title}
+                  tabName="alerts"
+                />
+              )}
+              <h3>Data source</h3>
+              {quickstart.documentation?.length > 0 ? (
+                <QuickstartDataSources quickstart={quickstart} />
+              ) : (
+                <EmptyTab
+                  quickstartUrl={quickstart.packUrl}
+                  quickstartName={quickstart.title}
+                  tabName="data sources"
+                />
+              )}
+            </div>
+
+          {/* Quickstart description here */}
+            <QuickstartDescription quickstart={quickstart} />
+
+          {/* How to use this quickstart here */}
+          <QuickstartHowToUse
+            quickstart={quickstart}
+            trackQuickstart={trackQuickstart}
+            tessenSupportTrack={tessenSupportTrack}
+          />
+
+          {/* Get started component here */}
+
+
           </Layout.Content>
-          <Layout.PageTools
-            css={css`
-              p,
-              li {
-                font-size: 0.85rem;
-              }
-              max-height: 100%;
-              @media (min-width: 1240px) {
-                width: 320px;
-                justify-self: flex-end;
-              }
-            `}
-          >
-            <PageTools.Section>
-              <div
-                css={css`
-                  background-color: var(--divider-color);
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  padding: 1rem;
-                  padding-top: 0.5rem;
-                  height: 2.5rem;
-                  width: 100%;
-                `}
-              >
-                <PageTools.Title>How to use this quickstart</PageTools.Title>
-              </div>
-              <ol
-                css={css`
-                  margin-top: 2.5rem;
-                `}
-              >
-                <li>
-                  <Link
-                    to={SIGNUP_LINK}
-                    onClick={trackQuickstart(
-                      'QuickstartDetailsSignUpClick',
-                      quickstart
-                    )}
-                  >
-                    Sign Up
-                  </Link>{' '}
-                  for a free New Relic account or{' '}
-                  <Link
-                    to={LOGIN_LINK}
-                    onClick={trackQuickstart(
-                      'QuickstartDetailsLoginClick',
-                      quickstart
-                    )}
-                  >
-                    Log In
-                  </Link>{' '}
-                  to your existing account.
-                </li>
-                <li>Click the green install button above.</li>
-                <li>
-                  Install the quickstart to get started or improve how you
-                  monitor your environment. They’re filled with pre-built
-                  resources like dashboards, instrumentation, and alerts.
-                </li>
-              </ol>
-            </PageTools.Section>
-            <aside
-              data-swiftype-index={false}
-              css={css`
-                border-bottom: 1px solid var(--divider-color);
-              `}
-            />
-            <PageTools.Section>
-              <PageTools.Title>Authors</PageTools.Title>
-              <p>{quickstart.authors.join(', ')}</p>
-            </PageTools.Section>
-            <aside
-              data-swiftype-index={false}
-              css={css`
-                border-bottom: 1px solid var(--divider-color);
-              `}
-            />
-            <PageTools.Section>
-              <PageTools.Title>Support</PageTools.Title>
-              <SupportSection
-                supportLevel={quickstart.level}
-                onClick={tessenSupportTrack(quickstart)}
-              />
-            </PageTools.Section>
-            <aside
-              data-swiftype-index={false}
-              css={css`
-                border-bottom: 1px solid var(--divider-color);
-              `}
-            />
-            <PageTools.Section>
-              <RelatedResources
-                css={css`
-                  padding: 0;
-                `}
-                resources={quickstart.relatedResources}
-              />
-            </PageTools.Section>
-            <aside
-              data-swiftype-index={false}
-              css={css`
-                border-bottom: 1px solid var(--divider-color);
-              `}
-            />
-          </Layout.PageTools>
+
         </PageLayout>
-      </Tabs>
     </>
   );
 };
