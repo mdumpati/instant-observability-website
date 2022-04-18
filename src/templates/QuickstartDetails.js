@@ -25,6 +25,9 @@ import { graphql } from 'gatsby';
 import { quickstart } from '../types';
 import QuickstartDescription from '../components/QuickstartDescription';
 import QuickstartHowToUse from '../components/QuickstartHowToUse';
+import Dashboards from '../components/LandingPage/Dashboards';
+import Alerts from '../components/LandingPage/Alerts';
+import DataSources from '../components/LandingPage/DataSources';
 
 const QuickstartDetails = ({ data, location }) => {
 
@@ -74,7 +77,7 @@ const QuickstartDetails = ({ data, location }) => {
     const img = new Image();
     img.src = url;
     const { width, height } = await new Promise(resolve => {
-      img.onload = function() {
+      img.onload = function () {
         resolve({
           width: this.width,
           height: this.height
@@ -112,29 +115,29 @@ const QuickstartDetails = ({ data, location }) => {
         meta={quickStartMeta}
       />
       <Breadcrumbs segments={breadcrumbs} />
-        <PageLayout
-          type={PageLayout.TYPE.RELATED_CONTENT_TABS}
-          css={css`
+      <PageLayout
+        type={PageLayout.TYPE.RELATED_CONTENT_TABS}
+        css={css`
             grid-template-columns: minmax(0, 1fr);
             margin-top: 1rem;
           `}
-        >
-          <PageLayout.Header
-            title={quickstart.title}
-            icon={
-              SHIELD_LEVELS.includes(quickstart.level) && (
-                <Icon
-                  name="nr-check-shield"
-                  size="50%"
-                  css={css`
+      >
+        <PageLayout.Header
+          title={quickstart.title}
+          icon={
+            SHIELD_LEVELS.includes(quickstart.level) && (
+              <Icon
+                name="nr-check-shield"
+                size="50%"
+                css={css`
                     width: 0.75rem;
                     height: 1rem;
                     margin-left: 0.5rem;
                   `}
-                />
-              )
-            }
-            css={css`
+              />
+            )
+          }
+          css={css`
               border-bottom: none;
               display: grid;
               grid-column-gap: 1rem;
@@ -171,13 +174,13 @@ const QuickstartDetails = ({ data, location }) => {
                 box-shadow: none;
               }
             `}
-          >
-            {quickstart.logoUrl && (
-              <img
-                style={imgStyle}
-                src={quickstart.logoUrl}
-                alt={quickstart.title}
-                css={css`
+        >
+          {quickstart.logoUrl && (
+            <img
+              style={imgStyle}
+              src={quickstart.logoUrl}
+              alt={quickstart.title}
+              css={css`
                   max-height: 100%;
                   max-width: 12rem;
                   width: 100%;
@@ -193,11 +196,11 @@ const QuickstartDetails = ({ data, location }) => {
                     display: none;
                   }
                 `}
-              />
-            )}
-            {quickstart.summary && (
-              <div
-                css={css`
+            />
+          )}
+          {quickstart.summary && (
+            <div
+              css={css`
                   grid-area: summ;
                   max-width: 50vw;
 
@@ -205,12 +208,12 @@ const QuickstartDetails = ({ data, location }) => {
                     max-width: 100%;
                   }
                 `}
-              >
-                {quickstart.summary}
-              </div>
-            )}
-            <div
-              css={css`
+            >
+              {quickstart.summary}
+            </div>
+          )}
+          <div
+            css={css`
                 grid-area: cta;
                 display: flex;
                 justify-content: center;
@@ -220,39 +223,36 @@ const QuickstartDetails = ({ data, location }) => {
                   align-items: stretch;
                 }
               `}
-            >
-              <InstallButton quickstart={quickstart} location={location} />
-              <Button
-                as={Link}
-                variant={Button.VARIANT.OUTLINE}
-                to={quickstartUrl}
-                rel="noopener noreferrer"
-                css={css`
+          >
+            <InstallButton quickstart={quickstart} location={location} />
+            <Button
+              as={Link}
+              variant={Button.VARIANT.OUTLINE}
+              to={quickstartUrl}
+              rel="noopener noreferrer"
+              css={css`
                   margin: 0 0 0 0.5rem;
                   @media (max-width: 760px) {
                     margin: 1rem 0 0 0;
                   }
                 `}
-                onClick={trackQuickstart('QuickstartViewRepoClick', quickstart)}
-              >
-                <Icon
-                  name="fe-github"
-                  css={css`
+              onClick={trackQuickstart('QuickstartViewRepoClick', quickstart)}
+            >
+              <Icon
+                name="fe-github"
+                css={css`
                     margin-right: 7px;
                   `}
-                />
-                View repo
-              </Button>
-            </div>
-          </PageLayout.Header>
+              />
+              View repo
+            </Button>
+          </div>
+        </PageLayout.Header>
 
-          <Layout.Content>
-
+        <Layout.Content>
           {/* What's included section here */}
-
-            <h2> What&apos;s included </h2>
-            <div
-              css={css`
+          <div
+            css={css`
                 display: grid;
                 grid-gap: 1rem;
                 grid-template-columns: repeat(1, 1fr);
@@ -261,41 +261,14 @@ const QuickstartDetails = ({ data, location }) => {
                   grid-template-columns: repeat(1, 1fr);
                 }
               `}
-            >
-              <h3>Dashboard</h3>
-              {quickstart.dashboards?.length > 0 ? (
-                <QuickstartDashboards quickstart={quickstart} />
-              ) : (
-                <EmptyTab
-                  quickstartUrl={quickstart.packUrl}
-                  quickstartName={quickstart.title}
-                  tabName="dashboards"
-                />
-              )}
-              <h3>Alerts</h3>
-              {quickstart.alerts?.length > 0 ? (
-                <QuickstartAlerts quickstart={quickstart} />
-              ) : (
-                <EmptyTab
-                  quickstartUrl={quickstart.packUrl}
-                  quickstartName={quickstart.title}
-                  tabName="alerts"
-                />
-              )}
-              <h3>Data source</h3>
-              {quickstart.documentation?.length > 0 ? (
-                <QuickstartDataSources quickstart={quickstart} />
-              ) : (
-                <EmptyTab
-                  quickstartUrl={quickstart.packUrl}
-                  quickstartName={quickstart.title}
-                  tabName="data sources"
-                />
-              )}
-            </div>
+          >
+            <Dashboards quickstart={quickstart} />
+            <Alerts quickstart={quickstart} />
+            <DataSources quickstart={quickstart} />
+          </div>
 
           {/* Quickstart description here */}
-            <QuickstartDescription quickstart={quickstart} />
+          <QuickstartDescription quickstart={quickstart} />
 
           {/* How to use this quickstart here */}
           <QuickstartHowToUse
@@ -307,9 +280,9 @@ const QuickstartDetails = ({ data, location }) => {
           {/* Get started component here */}
 
 
-          </Layout.Content>
+        </Layout.Content>
 
-        </PageLayout>
+      </PageLayout>
     </>
   );
 };
