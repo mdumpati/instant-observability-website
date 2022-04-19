@@ -6,12 +6,15 @@ import EmptyTab from '../../components/EmptyTab';
 import { css } from '@emotion/react';
 
 const Dashboards = ({ quickstart }) => {
-    const quickstartUrl = quickstart.packUrl || QUICKSTARTS_REPO;
 
     return (
         <PageTools.Section>
-            <h1>What's included?</h1><br />
-            <h2>Dashboard &nbsp;
+            <h1>
+                What's included?
+            </h1>
+            <br />
+            <h2>Dashboard
+                &nbsp;
                 <div
                     css={css`
                         display: inline-block;
