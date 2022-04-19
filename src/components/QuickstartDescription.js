@@ -29,10 +29,23 @@ const QuickstartDescription = ({ quickstart }) => {
             h2,
             h3 {
               margin: 1em 0 0.25em 0;
+              font-size: 44px;
+              line-height: 48px;
+              /* identical to box height, or 109% */
+              color: #1D252C;
             }
             p,
             pre {
               margin-left: 1em;
+              font-size: 18px;
+              line-height: 28px;
+              color: #1D252C;
+            }
+            li {
+              margin-left: 1em;
+              font-size: 18px;
+              line-height: 28px;
+              color: #1D252C;
             }
             h1,
             h2 {
@@ -42,6 +55,8 @@ const QuickstartDescription = ({ quickstart }) => {
             h3 {
               font-size: 1.2em;
             }
+            /* style of markdown content */
+            margin: 8rem 0;
           `}
         >
           <Markdown

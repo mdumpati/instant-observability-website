@@ -294,6 +294,9 @@ const QuickstartDetails = ({ data, location }) => {
               )}
             </div>
 
+            {/* Horizontal line */}
+            <hr className='hr-page-break' />
+
           {/* Quickstart description here */}
             <QuickstartDescription quickstart={quickstart} />
 
