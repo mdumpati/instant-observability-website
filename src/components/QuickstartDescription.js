@@ -53,6 +53,7 @@ const QuickstartDescription = ({ quickstart }) => {
             }
             h3 {
               font-size: 28px;
+              font-weight: normal;
             }
             /* style of markdown content */
             margin: 8rem 0;
