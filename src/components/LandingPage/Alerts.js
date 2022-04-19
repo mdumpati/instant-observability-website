@@ -1,6 +1,4 @@
 import { PageTools } from '@newrelic/gatsby-theme-newrelic';
-import { quickstart } from '../../types';
-import PageLayout from '../PageLayout';
 import QuickstartAlerts from '../../components/QuickstartAlerts';
 import EmptyTab from '../../components/EmptyTab';
 import { css } from '@emotion/react';

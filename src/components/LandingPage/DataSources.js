@@ -1,7 +1,5 @@
 import QuickstartDataSources from '../../components/QuickstartDataSources';
 import { PageTools } from '@newrelic/gatsby-theme-newrelic';
-import { quickstart } from '../../types';
-import PageLayout from '../PageLayout';
 import EmptyTab from '../../components/EmptyTab';
 import { css } from '@emotion/react';
 

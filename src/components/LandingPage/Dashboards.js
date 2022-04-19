@@ -1,6 +1,5 @@
 import { PageTools } from '@newrelic/gatsby-theme-newrelic';
 import { quickstart } from '../../types';
-import PageLayout from '../PageLayout';
 import QuickstartDashboards from '../../components/QuickstartDashboards';
 import EmptyTab from '../../components/EmptyTab';
 import { css } from '@emotion/react';
@@ -10,7 +9,7 @@ const Dashboards = ({ quickstart }) => {
     return (
         <PageTools.Section>
             <h1>
-                What's included?
+                What&apos;s included?
             </h1>
             <br />
             <h2>Dashboard
